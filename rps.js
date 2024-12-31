@@ -4,11 +4,10 @@ function getComputerChoice(min = 1, max){
 }
 
 //console.log(getComputerChoice(0, 2))
-
+console.log("Rock, Paper, Scissors!")
 function getUserChoice(){
-    console.log("Rock, Paper, Scissors!")
+    
     let choice = prompt ('Type "Rock", "Paper",or "Scissors":').toLowerCase()
-    console.log(choice)
     return (choice)
 }
 
@@ -29,6 +28,7 @@ function playRound(humanChoice, computerChoice){
             comp_alias = "scissors";
             break;
     }
+
     console.log(`human: ${humanChoice}
 computer: ${comp_alias}`)
     switch (humanChoice){
@@ -42,10 +42,15 @@ computer: ${comp_alias}`)
             humanChoice = 3;
             break;
     }
-    if ((humanChoice > computerChoice) || (humanChoice == 1 && computerChoice == 3)){
+
+    if (humanChoice ==3 && computerChoice == 1){
+        console.log("lose :(")
+        computerScore++
+    }
+    else if ((humanChoice > computerChoice) || (humanChoice == 1 && computerChoice == 3)){
         
        console.log("You win!")
-       humanScore+=1
+       humanScore++
     }
 
     else if (humanChoice == computerChoice){
@@ -54,7 +59,31 @@ computer: ${comp_alias}`)
 
     else {
         console.log("lose :(")
+        computerScore++
     }
 }
 
-playRound(getUserChoice(), getComputerChoice(1,3))
+let rounds_played = 0;
+
+function playGame(rounds_played){
+    while (rounds_played < 5){
+        playRound(getUserChoice(), getComputerChoice(1, 3))
+        rounds_played ++;
+    }   
+}
+
+playGame(rounds_played)
+console.log(`human score: ${humanScore}
+computer score: ${computerScore}`);
+
+if (computerScore > humanScore){
+    console.log("you lose :(")
+}
+
+else  if (computerScore < humanScore){
+    console.log("you win!")
+}
+
+else {
+    console.log("it's a tie!")
+}
